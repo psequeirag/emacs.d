@@ -4,7 +4,11 @@
 
 (require 'package)
 (add-to-list 'package-archives
-             '("melpa" . "http://melpa.org/packages/") t)
+             '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+
+;; Load and activate emacs packages. Do this first so that the
+;; packages are loaded before you start trying to modify them.
+;; This also sets the load path.
 (package-initialize)
 
 ;; Download the ELPA archive description if needed.
@@ -13,8 +17,18 @@
 (when (not package-archive-contents)
   (package-refresh-contents))
 
+;; The packages that must be installed by default.
+(defvar my-packages
+  '(;; Use/Create ergonomic keybindings in emacs that will reduce RSI
+    ergoemacs-mode
+    ))
+
+(dolist (p my-packages)
+  (when (not (package-installed-p p))
+    (package-install p)))
+
 ;;
-;; Ergoemacs
+;; Package activation & customization.
 ;;
 (require 'ergoemacs-mode)
 
