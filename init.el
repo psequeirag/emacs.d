@@ -21,6 +21,9 @@
 (defvar my-packages
   '(;; Use/Create ergonomic keybindings in emacs that will reduce RSI
     ergoemacs-mode
+
+    ;; Git integration
+    magit
     ))
 
 (dolist (p my-packages)
