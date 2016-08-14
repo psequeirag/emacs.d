@@ -1,8 +1,10 @@
-;;
+﻿;;
 ;; Package management setup
 ;;
 
 (require 'package)
+;; For anything of this to work, be sure to have enabled first the support for TLS
+;; see http://חנוך.se/diary/how_to_enable_GnuTLS_for_Emacs_24_on_Windows/index.en.html
 (add-to-list 'package-archives
              '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 
@@ -23,6 +25,7 @@
     ergoemacs-mode
 
     ;; Git integration
+    ;; This requires git to be available in the command line
     magit
     ))
 
@@ -55,6 +58,7 @@
 ;; then enter the text in that file's own buffer.
 
 ")
+ '(recentf-menu-before "Open File...")
  '(scroll-error-top-bottom nil)
  '(set-mark-command-repeat-pop nil)
  '(shift-select-mode t))
