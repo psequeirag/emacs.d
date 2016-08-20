@@ -24,6 +24,9 @@
 
     ;; Git integration
     magit
+
+    ;; allow ido usage in as many contexts as possible.
+    ido-ubiquitous
     ))
 
 (dolist (p my-packages)
@@ -33,7 +36,6 @@
 ;;
 ;; Package activation & customization.
 ;;
-(require 'ergoemacs-mode)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -49,6 +51,11 @@
  '(ergoemacs-theme "standard")
  '(ergoemacs-theme-options nil)
  '(ergoemacs-use-menus t)
+ '(ido-auto-merge-work-directories-length -1)
+ '(ido-enable-flex-matching t)
+ '(ido-mode (quote both) nil (ido))
+ '(ido-ubiquitous-mode t)
+ '(ido-use-virtual-buffers (quote auto))
  '(initial-scratch-message
    ";; This buffer is for notes you don't want to save, and for Lisp evaluation.
 ;; If you want to create a file, visit that file with C-x C-f,
