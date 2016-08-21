@@ -21,12 +21,13 @@
 (defvar my-packages
   '(;; Use/Create ergonomic keybindings in emacs that will reduce RSI
     ergoemacs-mode
+ 
+    ;; allow ido usage in as many contexts as possible.
+    ido-ubiquitous
+    smex
 
     ;; Git integration
     magit
-
-    ;; allow ido usage in as many contexts as possible.
-    ido-ubiquitous
     ))
 
 (dolist (p my-packages)
@@ -64,7 +65,8 @@
 ")
  '(scroll-error-top-bottom nil)
  '(set-mark-command-repeat-pop nil)
- '(shift-select-mode t))
+ '(shift-select-mode t)
+ '(smex-prompt-string "M-x "))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
