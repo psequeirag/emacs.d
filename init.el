@@ -63,6 +63,7 @@
 ;; then enter the text in that file's own buffer.
 
 ")
+ '(recentf-menu-before "Open File...")
  '(scroll-error-top-bottom nil)
  '(set-mark-command-repeat-pop nil)
  '(shift-select-mode t)
