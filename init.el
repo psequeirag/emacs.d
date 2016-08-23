@@ -28,6 +28,9 @@
 
     ;; Git integration
     magit
+
+    ;; Project navigation
+    projectile
     ))
 
 (dolist (p my-packages)
@@ -63,7 +66,9 @@
 ;; then enter the text in that file's own buffer.
 
 ")
+ '(projectile-global-mode t)
  '(recentf-menu-before "Open File...")
+ '(recentf-mode t)
  '(scroll-error-top-bottom nil)
  '(set-mark-command-repeat-pop nil)
  '(shift-select-mode t)
@@ -74,3 +79,4 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+(put 'erase-buffer 'disabled nil)
