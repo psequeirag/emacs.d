@@ -14,14 +14,11 @@
 (package-initialize)
 
 ;; Download the ELPA archive description if needed.
-;; This informs Emacs about the latest versions of all packages, and
-;; makes them available for download.
 (when (not package-archive-contents)
-  (package-refresh-contents))
-
+  (package-refresh-contents)
 ;; The packages that must be installed by default.
-(defvar my-packages
-  '(;; Use/Create ergonomic keybindings in emacs that will reduce RSI
+  (setf package-selected-packages '(
+    ;; Use/Create ergonomic keybindings in emacs that will reduce RSI
     ergoemacs-mode
  
     ;; allow ido usage in as many contexts as possible.
@@ -41,14 +38,7 @@
     rainbow-delimiters
     paredit
     ))
-
-(dolist (p my-packages)
-  (when (not (package-installed-p p))
-    (package-install p)))
-
-;;
-;; Package activation & customization.
-;;
+  (package-install-selected-packages))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -75,14 +65,17 @@
  '(ido-use-virtual-buffers (quote auto))
  '(indent-tabs-mode nil)
  '(initial-scratch-message
-   ";; This buffer is for notes you don't want to save, and for Lisp evaluation.
-;; If you want to create a file, visit that file with C-x C-f,
-;; then enter the text in that file's own buffer.
+   ";; This buffer is for text that is not saved, and for Lisp evaluation.
+;; To create a file, visit it with \\[find-file] and enter text in its buffer.
 
 ")
  '(org-CUA-compatible nil)
+ '(org-replace-disputed-keys nil)
  '(org-special-ctrl-a/e nil)
  '(org-support-shift-select nil)
+ '(package-selected-packages
+   (quote
+    (json-reformat smex rainbow-delimiters projectile paredit magit ido-ubiquitous ergoemacs-mode cider)))
  '(projectile-global-mode t)
  '(recentf-menu-before "Open File...")
  '(recentf-mode t)
