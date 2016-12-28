@@ -1,10 +1,26 @@
-﻿;;
+;; This script assumes the following preparation has been made:
+;;
+;; * Support for TLS in the current Emacs installation has been
+;; enabled (see
+;; http://חנוך.se/diary/how_to_enable_GnuTLS_for_Emacs_24_on_Windows/index.en.html).
+;; This also means that a 32-bit version of Emacs (i686-w64-mingw32)
+;; may be required if a 64-bit version of GnuTLS binaries is not
+;; available either.
+;;
+;; * A git.exe binary is available in the current %PATH%.
+;;
+;; * The HOME environment variable has been set to %USERPROFILE%.
+;;
+;; * The script has been placed in %HOME%/.emacs.d/
+;;
+;; * There is no %HOME%/.emacs file.
+
+;;
 ;; Package management setup
 ;;
 
 (require 'package)
-;; For anything of this to work, be sure to have enabled first the support for TLS
-;; see http://חנוך.se/diary/how_to_enable_GnuTLS_for_Emacs_24_on_Windows/index.en.html
+;; This requires GnuTLS support.
 (add-to-list 'package-archives
              '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 
@@ -26,7 +42,7 @@
     smex
 
     ;; Git integration
-    ;; This requires git to be available in the command line
+    ;; This requires git.exe to be in %PATH%
     magit
 
     ;; Project navigation
@@ -69,7 +85,6 @@
 ;; To create a file, visit it with \\[find-file] and enter text in its buffer.
 
 ")
- '(org-CUA-compatible nil)
  '(org-replace-disputed-keys nil)
  '(org-special-ctrl-a/e nil)
  '(org-support-shift-select nil)
