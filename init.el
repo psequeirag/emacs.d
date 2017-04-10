@@ -78,6 +78,7 @@
 
 ")
  '(org-CUA-compatible nil)
+ '(org-replace-disputed-keys nil)
  '(org-special-ctrl-a/e nil)
  '(org-support-shift-select nil)
  '(projectile-global-mode t)
