@@ -11,37 +11,37 @@
 ;; This also sets the load path.
 (package-initialize)
 
+;; Ensure packages are downloaded and installed automatically when missing
+(setq use-package-always-ensure t)
+
 ;; Download the ELPA archive description if needed.
 ;; This informs Emacs about the latest versions of all packages, and
 ;; makes them available for download.
 (when (not package-archive-contents)
-  (package-refresh-contents))
+  (package-refresh-contents)
+  (package-install 'use-package))
 
-;; The packages that must be installed by default.
-(defvar my-packages
-  '(;; Use/Create ergonomic keybindings in emacs that will reduce RSI
-    ergoemacs-mode
- 
-    ;; allow ido usage in as many contexts as possible.
-    ido-ubiquitous
-    smex
+;; Use/Create ergonomic keybindings in emacs that will reduce RSI
+(use-package ergoemacs-mode)
 
-    ;; Git integration
-    magit
+;; allow ido usage in as many contexts as possible.
+(use-package ido-ubiquitous)
+(use-package smex)
 
-    ;; Project navigation
-    projectile
+;; Git integration
+(use-package magit)
 
-    ;; Clojure programming support
-    clojure-mode
-    cider
-    rainbow-delimiters
-    paredit
-    ))
+;; Project navigation
+(use-package projectile)
 
-(dolist (p my-packages)
-  (when (not (package-installed-p p))
-    (package-install p)))
+;; General Lisp programming support
+(use-package rainbow-delimiters)
+(use-package paredit)
+(use-package parinfer)
+
+;; Clojure programming support
+(use-package clojure-mode)
+(use-package cider)
 
 ;;
 ;; Package activation & customization.
@@ -89,56 +89,51 @@
  '(shift-select-mode t)
  '(show-paren-mode t)
  '(smex-prompt-string "M-x "))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
 (put 'erase-buffer 'disabled nil)
 
 ;;;;
 ;; EmacsLisp, Clojure and Cider mode hooks
 ;;;;
 
-;; Enable paredit for Clojure
-(add-hook 'clojure-mode-hook 'enable-paredit-mode)
+;; ;; Enable paredit for Clojure
+;; (add-hook 'clojure-mode-hook 'enable-paredit-mode)
 
-;; This is useful for working with camel-case tokens, like names of
-;; Java classes (e.g. JavaClassName)
-(add-hook 'clojure-mode-hook 'subword-mode)
+;; ;; This is useful for working with camel-case tokens, like names of
+;; ;; Java classes (e.g. JavaClassName)
+;; (add-hook 'clojure-mode-hook 'subword-mode)
 
-;; syntax hilighting for midje
-(add-hook 'clojure-mode-hook
-          (lambda ()
-            (setq inferior-lisp-program "lein repl")
-            (font-lock-add-keywords
-             nil
-             '(("(\\(facts?\\)"
-                (1 font-lock-keyword-face))
-               ("(\\(background?\\)"
-                (1 font-lock-keyword-face))))
-            (define-clojure-indent (fact 1))
-            (define-clojure-indent (facts 1))))
+;; ;; syntax hilighting for midje
+;; (add-hook 'clojure-mode-hook
+;;           (lambda ()
+;;             (setq inferior-lisp-program "lein repl")
+;;             (font-lock-add-keywords
+;;              nil
+;;              '(("(\\(facts?\\)"
+;;                 (1 font-lock-keyword-face))
+;;                ("(\\(background?\\)"
+;;                 (1 font-lock-keyword-face))))
+;;             (define-clojure-indent (fact 1))
+;;             (define-clojure-indent (facts 1))))
 
-;; provides minibuffer documentation for the code you're typing into the repl
-(add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
+;; ;; provides minibuffer documentation for the code you're typing into the repl
+;; (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
 
-;; enable paredit in your REPL
-(add-hook 'cider-repl-mode-hook 'paredit-mode)
+;; ;; enable paredit in your REPL
+;; (add-hook 'cider-repl-mode-hook 'paredit-mode)
 
-;; Automatically load paredit when editing a lisp file
-;; More at http://www.emacswiki.org/emacs/ParEdit
-(autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
-(add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
-(add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
-(add-hook 'ielm-mode-hook             #'enable-paredit-mode)
-(add-hook 'lisp-mode-hook             #'enable-paredit-mode)
-(add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
-(add-hook 'scheme-mode-hook           #'enable-paredit-mode)
+;; ;; Automatically load paredit when editing a lisp file
+;; ;; More at http://www.emacswiki.org/emacs/ParEdit
+;; (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
+;; (add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
+;; (add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
+;; (add-hook 'ielm-mode-hook             #'enable-paredit-mode)
+;; (add-hook 'lisp-mode-hook             #'enable-paredit-mode)
+;; (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
+;; (add-hook 'scheme-mode-hook           #'enable-paredit-mode)
 
-;; eldoc-mode shows documentation in the minibuffer when writing code
-;; http://www.emacswiki.org/emacs/ElDoc
-(add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
-(add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
-(add-hook 'ielm-mode-hook 'turn-on-eldoc-mode)
+;; ;; eldoc-mode shows documentation in the minibuffer when writing code
+;; ;; http://www.emacswiki.org/emacs/ElDoc
+;; (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
+;; (add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
+;; (add-hook 'ielm-mode-hook 'turn-on-eldoc-mode)
+
