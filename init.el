@@ -1,50 +1,5 @@
 ;;
-;; Package management setup
-;;
-
-(require 'package)
-(add-to-list 'package-archives
-             '("melpa-stable" . "https://stable.melpa.org/packages/") t)
-
-;; Load and activate emacs packages. Do this first so that the
-;; packages are loaded before you start trying to modify them.
-;; This also sets the load path.
-(package-initialize)
-
-;; Ensure packages are downloaded and installed automatically when missing
-(setq use-package-always-ensure t)
-
-;; Download the ELPA archive description if needed.
-;; This informs Emacs about the latest versions of all packages, and
-;; makes them available for download.
-(when (not package-archive-contents)
-  (package-refresh-contents)
-  (package-install 'use-package))
-
-;; Use/Create ergonomic keybindings in emacs that will reduce RSI
-(use-package ergoemacs-mode)
-
-;; allow ido usage in as many contexts as possible.
-(use-package ido-ubiquitous)
-(use-package smex)
-
-;; Git integration
-(use-package magit)
-
-;; Project navigation
-(use-package projectile)
-
-;; General Lisp programming support
-(use-package rainbow-delimiters)
-(use-package paredit)
-(use-package parinfer)
-
-;; Clojure programming support
-(use-package clojure-mode)
-(use-package cider)
-
-;;
-;; Package activation & customization.
+;; General Customization.
 ;;
 
 (custom-set-variables
@@ -77,10 +32,14 @@
 ;; then enter the text in that file's own buffer.
 
 ")
- '(org-CUA-compatible nil)
  '(org-replace-disputed-keys nil)
  '(org-special-ctrl-a/e nil)
  '(org-support-shift-select nil)
+ '(package-archives
+   (quote
+    (("melpa" . "https://melpa.org/packages/")
+     ("melpa-stable" . "https://stable.melpa.org/packages/")
+     ("gnu" . "https://elpa.gnu.org/packages/"))))
  '(projectile-global-mode t)
  '(recentf-menu-before "Open File...")
  '(recentf-mode t)
@@ -88,8 +47,61 @@
  '(set-mark-command-repeat-pop nil)
  '(shift-select-mode t)
  '(show-paren-mode t)
- '(smex-prompt-string "M-x "))
+ '(smex-prompt-string "M-x ")
+ '(use-package-always-ensure t))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
 (put 'erase-buffer 'disabled nil)
+
+;;
+;; Package management setup
+;;
+
+(require 'package)
+
+;; Load and activate emacs packages. Do this first so that the
+;; packages are loaded before you start trying to modify them.
+;; This also sets the load path.
+(package-initialize)
+
+;; Download the ELPA archive description if needed.
+;; This informs Emacs about the latest versions of all packages, and
+;; makes them available for download.
+(when (not package-archive-contents)
+  (package-refresh-contents)
+  (package-install 'use-package))
+
+;;
+;; Package Selection & Configuration
+;;
+
+;; Use/Create ergonomic keybindings in emacs that will reduce RSI
+(use-package ergoemacs-mode)
+
+;; allow ido usage in as many contexts as possible.
+(use-package ido-ubiquitous)
+(use-package smex)
+
+;; Git integration
+(use-package magit)
+
+;; Project navigation
+(use-package projectile)
+
+;; General Lisp programming support
+(use-package rainbow-delimiters)
+(use-package paredit)
+(use-package company)
+(use-package parinfer)
+
+;; Clojure programming support
+(use-package clojure-mode)
+(use-package cider)
+
 
 ;;;;
 ;; EmacsLisp, Clojure and Cider mode hooks
