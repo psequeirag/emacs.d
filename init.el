@@ -22,8 +22,9 @@
  '(global-hl-line-mode t)
  '(ido-auto-merge-work-directories-length -1)
  '(ido-enable-flex-matching t)
- '(ido-mode (quote both) nil (ido))
- '(ido-ubiquitous-mode t)
+ '(ido-mode 1)
+ '(ido-everywhere 1)
+ '(ido-ubiquitous-mode 1)
  '(ido-use-virtual-buffers (quote auto))
  '(indent-tabs-mode nil)
  '(initial-scratch-message
@@ -83,7 +84,7 @@
 (use-package ergoemacs-mode)
 
 ;; allow ido usage in as many contexts as possible.
-(use-package ido-ubiquitous)
+(use-package ido-completing-read+)
 (use-package smex)
 
 ;; Git integration
@@ -96,7 +97,20 @@
 (use-package rainbow-delimiters)
 (use-package paredit)
 (use-package company)
-(use-package parinfer)
+(use-package parinfer
+  :init
+  (progn
+    (setq parinfer-extensions
+          '(defaults       ; should be included.
+            pretty-parens  ; different paren styles for different modes.
+            paredit        ; Introduce some paredit commands.
+            smart-tab      ; C-b & C-f jump positions and smart shift with tab & S-tab.
+            smart-yank))   ; Yank behavior depend on mode.
+    (add-hook 'clojure-mode-hook #'parinfer-mode)
+    (add-hook 'emacs-lisp-mode-hook #'parinfer-mode)
+    (add-hook 'common-lisp-mode-hook #'parinfer-mode)
+    (add-hook 'scheme-mode-hook #'parinfer-mode)
+    (add-hook 'lisp-mode-hook #'parinfer-mode)))
 
 ;; Clojure programming support
 (use-package clojure-mode)
